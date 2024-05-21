@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies@Mariana</title>
+    <!-- Bootstrap links -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <!-- Google fonts -->
+    <style>@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400&display=swap');</style>
+    
+    <!-- Table and body styling -->
+    <style>
+
+        body{
+            font-family: 'Noto Sans', sans-serif;
+            }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .gr-logo{
+                font-size: 32px;
+                background: -webkit-linear-gradient(#320055, #00ff87);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                }
+    </style>
+    
+</head>
+
+
+<body>
+    
+    <!-- including navbar to every webpage -->
+    {% include 'header.html' %}
+
+    {% block content %}{% endblock content %}
+
+</body>
+
+
+<!-- Javascript code -->
+<script>
+    // JavaScript to filter movies by genre
+    function filterMovies() {
+        var selectedGenre = document.getElementById("genreFilter").value;
+        var table = document.getElementById("movieTable");
+        var rows = table.getElementsByClassName("movieRow");
+        for (var i = 0; i < rows.length; i++) {
+            var genresCell = rows[i].getElementsByTagName("td")[3];
+            if (selectedGenre === "" || genresCell.textContent.includes(selectedGenre)) {
+                rows[i].style.display = "";
+            } else {
+                rows[i].style.display = "none";
+            }
+        }
+    }
+
+    // JavaScript to search movies using title
+    function searchMovies() {
+        var input, filter, table, rows, title, i, txtValue;
+        input = document.getElementById("titleSearch");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("movieTable");
+        rows = table.getElementsByClassName("movieRow");
+        for (i = 0; i < rows.length; i++) {
+            title = rows[i].getElementsByTagName("td")[1];
+            if (title) {
+                txtValue = title.textContent || title.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    rows[i].style.display = "";
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+</html>

@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- Filter function -->
+<div class="navbar mt-2">
+    <div class="container-fluid">
+        <form class="navbar brand">
+            <select class="btn btn-secondary btn-m dropdown-toggle" id="genreFilter" onchange="filterMovies()">
+                <option class="rounded" value="">All Genres</option>
+                {% for genre in all_genres %}
+                    <option value="{{ genre }}">{{ genre }}</option>
+                {% endfor %}
+            </select>
+        </form>
+    <!-- Search function -->
+      <form class="d-flex input-group w-auto">
+        <input class="form-control rounded" aria-label="Search" aria-describedby="search-addon" type="text" id="titleSearch" onkeyup="searchMovies()" placeholder="Search for movies">
+      </form>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- Movie display table -->
+<div class="container-fluid">
+    <table id="movieTable" class="table align-middle mb-0 bg-white text-center">
+        <thead class="bg-light">
+            <tr class="table text">
+                <th class="text-center">Movies for Day</th>
+                <th class="text-center">Movie name</th>
+                <th class="text-center">Poster</th>
+                <th class="text-center">Genre(s)</th>
+                <th class="text-center">Rating</th>
+                <th class="text-center">Release</th>
+                <th class="text-center">Rating</th>
+                <th class="text-center">Runtime</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for data in json_data %}
+                {% comment %} <tr class="movieDate">
+                    <td class="text-center fw-bold mb-0">{{data.date}}</td>
+                </tr> {% endcomment %}
+
+                {% for movie in data.movies %}
+                    <tr class="movieRow">
+                        <td class="text-center fw-bold mb-1">{{ data.date }}</td>
+                        <td class="text-center fw-bold mb-1">{{ movie.title }}</td>
+                        <td>
+                            <img src="{{ movie.poster }}" alt="{{ movie.title }} Poster"
+                            class="mx-auto d-block" alt="" 
+                            style="width: 55px; height: 65px;">
+                        </td>
+
+                        <td class="text-center ">
+                            {% for genre in movie.genre %}
+                                {{ genre }}
+                                {% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td class="text-center text-muted text-success mb-0">{{ movie.Ratings.0.value }}</td>
+                        <td class="text-center">{{ movie.released }}</td>
+                        <td class="text-center">{{ movie.meta_score }}</td>
+                        <td class="text-center text-danger">{{ movie.runtime }}</td>
+                    </tr>
+                {% endfor %}
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock content %}
