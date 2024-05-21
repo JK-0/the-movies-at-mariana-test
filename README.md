@@ -2,6 +2,17 @@
 
 ## The Movies@Mariana
 
+## Docker setup
+
+`docker build . -t the-movies-at-mariana-test`
+
+`docker run -p 9000:9000 the-movies-at-mariana-test`
+
+visit url in browser http://127.0.0.1:9000
+
+##
+
+
 ## Prompt
 
 Mariana Tek is hosting a series of events calledThe Movies@Mariana Tek this summer for camaraderie purposes. We want to be as democratic as possible, so each night we will have 3 choices that we can vote on. We need to create a small application where everyone can view the movies on the schedule, separated by date. These movies should be in a list with the following information:
